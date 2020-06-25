@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  php-fpm:
+    container_name: bo_refund_php-fpm
+    build:
+      context: ./../../application
+      dockerfile: ./infrastructure/docker/php-fpm/Dockerfile
+    volumes:
+      - type: bind
+        source: ./../../application
+        target: /var/www/html
+
+  bo_refund_nginx:
+    container_name: bo_refund_nginx
+    build:
+      context: ./../../application
+      dockerfile: ./infrastructure/docker/nginx/Dockerfile
+    volumes:
+      - type: bind
+        source: ./../../application
+        target: /var/www/html
+    ports:
+      - "8094:80"
